@@ -1,2 +1,2 @@
-# syde372
-Introduction to Pattern Recognition lab code
+# SYDE372
+Introduction to Pattern Recognition
