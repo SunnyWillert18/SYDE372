@@ -22,6 +22,12 @@ classdef ModelEstimation < handle
             %ML estimate of lambda as derived in tutorial
             result = numel(m.dataSet) / sum(m.dataSet);
         end
+        
+        function result = parametricEstimationUniform(m)
+            %ML estimate of a and b are min and max x axis values,
+            %respectively
+            result = [min(m.dataSet), max(m.dataSet)];
+        end
     end
     
     methods (Static)
