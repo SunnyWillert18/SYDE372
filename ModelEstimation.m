@@ -28,6 +28,23 @@ classdef ModelEstimation < handle
             %respectively
             result = [min(m.dataSet), max(m.dataSet)];
         end
+        
+        function result = nonParametricEstimationParzen(m, sigma, k)
+            %calculate h param
+            h = k / sqrt(numel(m.dataSet));
+            %define window function
+            w = @(x) (1/(sqrt(2*pi)*sigma)) * exp(-1/2*(x/sigma)^2);
+            out = [];
+            %compute probability according to parzen window sum for each point
+            for i = -10:0.1:10
+                sum = 0;
+                for j = 1:numel(m.dataSet)
+                    sum = sum + (1/h * w((i-m.dataSet(j))/h));
+                end
+                out = [out 1/(numel(m.dataSet))*sum];
+            end
+            result = out;
+        end
     end
     
     methods (Static)
