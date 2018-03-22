@@ -1,3 +1,5 @@
+%A class to calculate 1-dimensional parametric and non parametric estimates of
+%distributions from sets of datapoints. 
 classdef ModelEstimation < handle
     properties (Access = public)
         dataSet;
@@ -18,17 +20,26 @@ classdef ModelEstimation < handle
             result = [mu, sigma];
         end
         
+        %A function to calculate the ML estimation of the params of an
+        %assumed exponential distribution.
+        %Outputs: lambda
         function result = parametricEstimationExponential(m)
             %ML estimate of lambda as derived in tutorial
             result = numel(m.dataSet) / sum(m.dataSet);
         end
         
+        %A function to calculate the ML estimation of the params of an
+        %assumed uniform distribution.
+        %Outputs: [a, b]
         function result = parametricEstimationUniform(m)
             %ML estimate of a and b are min and max x axis values,
             %respectively
             result = [min(m.dataSet), max(m.dataSet)];
         end
         
+        %A function to calculate the Parzen Window estimation of a
+        %distribution.
+        %Outputs: Vector of evaluated points of estimate
         function result = nonParametricEstimationParzen(m, sigma, k)
             %calculate h param
             h = k / sqrt(numel(m.dataSet));
@@ -48,11 +59,14 @@ classdef ModelEstimation < handle
     end
     
     methods (Static)
+        %A function to plot two distributions on the same plot.
         function comparePlots(x, pdf1, pdf2, graphTitle)
             figure
             hold on 
             title(graphTitle);
+            %true pdf
             plot(x, pdf1, 'b');
+            %estimated pdf
             plot(x, pdf2, 'r');
         end
     end
