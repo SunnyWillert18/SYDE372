@@ -68,6 +68,9 @@ classdef ModelEstimation < handle
             plot(x, pdf1, 'b');
             %estimated pdf
             plot(x, pdf2, 'r');
+            legend('True PDF', 'Estimated PDF');
+            xlabel('x');
+            ylabel('p(x)');
         end
     end
 end

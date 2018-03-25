@@ -1,3 +1,4 @@
+load('lab2_1.mat');
 x = -10:0.1:10;
 
 %DATASET A
@@ -39,7 +40,7 @@ gaussianB = modelEstB.parametricEstimationGaussian();
 expB = modelEstB.parametricEstimationExponential();
 uniB = modelEstB.parametricEstimationUniform();
 parzenB = modelEstB.nonParametricEstimationParzen(0.1, 50);
-parzenB2 = modelEstB.nonParametricEstimationParzen(0.4, 8);
+parzenB2 = modelEstB.nonParametricEstimationParzen(0.4, 10);
 pdf1 = exppdf(x, lambdaB);
 pdf2 = normpdf(x, gaussianB(1), gaussianB(2));
 pdf3 = exppdf(x, expB);
