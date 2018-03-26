@@ -124,7 +124,7 @@ classdef SequentialDiscriminant < handle
                     s.naBj = [s.naBj; naB];
                     s.nbAj = [s.nbAj; nbA];
                     s.j = s.j + 1;
-                    %flag points in a that classify as a
+                    %delete points in a that classify as a
                     temp = [];
                     for i = 1:size(s.a,1)
                         if(s.currentG(i) == 0)
@@ -136,6 +136,13 @@ classdef SequentialDiscriminant < handle
                 else
                     result = 0;
                 end
+            end
+        end
+        
+        function buildClassifier(s)
+            while(numel(s.b) ~=0 || numel(s.a) ~= 0)
+                c = s.iterateClassifier();
+                s.checkConfusion(c);
             end
         end
         
