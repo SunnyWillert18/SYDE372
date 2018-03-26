@@ -91,7 +91,7 @@ classdef SequentialDiscriminant < handle
                 known = ones(size(s.a,1),1);
             end
             %generate confusion matrix
-            confusion = confusionmat(known, double(G))
+            confusion = confusionmat(known, double(G));
         end
         
         function result = checkConfusion(s, c)
@@ -138,8 +138,50 @@ classdef SequentialDiscriminant < handle
                 end
             end
         end
+        
+        function result = classify(s, point)
+            j = 1;
+            solved = 0;
+            while(~solved)
+                protoA = [s.Gj(j, 1), s.Gj(j, 2)];
+                protoB = [s.Gj(j, 3), s.Gj(j, 4)];
+                result = SequentialDiscriminant.classifyMED(protoA, protoB, point);
+                if((result == 1 && s.nbAj(j) == 0) || (result == 0 && s.naBj(j) == 0))
+                    solved = 1;
+                else
+                    j = j + 1;
+                end
+            end
+        end
+        
+        function plotClassifier(s, a, b)
+            %set range
+            Xr = 50:1:550;
+            Yr = 0:1:450;
+            [X, Y] = meshgrid(Xr, Yr);
+            classifications = X;
+            for i = 1:numel(X)
+                classifications(i)= s.classify([X(i), Y(i)]);
+            end
+            figure
+            hold on
+            scatter(a(:,1), a(:,2), 'r');
+            scatter(b(:,1), b(:,2), 'c');
+            contour(X, Y, classifications, 'k');
+            title('Sequential Classifier Results');
+            xlabel('x1');
+            ylabel('x2');
+            legend('Class a', 'Class b', 'Decision Boundary');
+        end
     end
     
     methods (Static)
+        function result = classifyMED(protoA, protoB, point)
+            X = point(1);
+            Y = point(2);
+            MED_A = sqrt((X - protoA(1))^2 + (Y - protoA(2))^2);
+            MED_B = sqrt((X - protoB(1))^2 + (Y - protoB(2))^2);
+            result = MED_A < MED_B;
+        end
     end
 end
