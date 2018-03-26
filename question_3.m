@@ -1,9 +1,8 @@
 load('lab2_3.mat');
 s = SequentialDiscriminant(a, b);
 
-while(s.j < 5)
+while(numel(s.b) ~=0 || numel(s.a) ~= 0)
     c = s.iterateClassifier();
-    %order = 0;1
     result = s.checkConfusion(c);
+    numel(s.b)
 end
-
