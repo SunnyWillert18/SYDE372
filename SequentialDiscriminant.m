@@ -161,10 +161,10 @@ classdef SequentialDiscriminant < handle
             end
         end
         
-        function plotClassifier(s, a, b)
+        function plotClassifier(s, a, b, graphTitle)
             %set range
-            Xr = 50:1:550;
-            Yr = 0:1:450;
+            Xr = 50:0.5:550;
+            Yr = 0:0.5:450;
             [X, Y] = meshgrid(Xr, Yr);
             classifications = X;
             for i = 1:numel(X)
@@ -172,10 +172,10 @@ classdef SequentialDiscriminant < handle
             end
             figure
             hold on
+            title(graphTitle);
             scatter(a(:,1), a(:,2), 'r');
             scatter(b(:,1), b(:,2), 'c');
             contour(X, Y, classifications, 'k');
-            title('Sequential Classifier Results');
             xlabel('x1');
             ylabel('x2');
             legend('Class a', 'Class b', 'Decision Boundary');
