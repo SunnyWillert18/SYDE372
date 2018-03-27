@@ -112,9 +112,7 @@ classdef SequentialDiscriminant < handle
                     s.Gj = [s.Gj; [s.currentProtoA s.currentProtoB]];
                     s.naBj = [s.naBj; naB];
                     s.nbAj = [s.nbAj; nbA];
-                    
                     s.checkError();
-                    
                     s.j = s.j + 1;
                     %delete points in b that classify as b
                     temp = [];
@@ -131,9 +129,7 @@ classdef SequentialDiscriminant < handle
                     s.Gj = [s.Gj; [s.currentProtoA s.currentProtoB]];
                     s.naBj = [s.naBj; naB];
                     s.nbAj = [s.nbAj; nbA];
-                    
                     s.checkError();
-                    
                     s.j = s.j + 1;
                     %delete points in a that classify as a
                     temp = [];
@@ -194,15 +190,15 @@ classdef SequentialDiscriminant < handle
         
         function checkError(s)
             if s.j == 1
-                s.errorJ1 = [s.errorJ1; (naB + nbA)/400];
+                s.errorJ1 = (s.naBj(s.j) + s.nbAj(s.j))/400;
             elseif s.j == 2
-                s.errorJ2 = [s.errorJ2; (naB + nbA)/400];
+                s.errorJ2 = (s.naBj(s.j) + s.nbAj(s.j))/400;
             elseif s.j == 3
-                s.errorJ3 = [s.errorJ3; (naB + nbA)/400];
+                s.errorJ3 = (s.naBj(s.j) + s.nbAj(s.j))/400;
             elseif s.j == 4
-                s.errorJ4 = [s.errorJ4; (naB + nbA)/400];
+                s.errorJ4 = (s.naBj(s.j) + s.nbAj(s.j))/400;
             elseif s.j == 5
-                s.errorJ5 = [s.errorJ5; (naB + nbA)/400];
+                s.errorJ5 = (s.naBj(s.j) + s.nbAj(s.j))/400;
             end
         end
     end
